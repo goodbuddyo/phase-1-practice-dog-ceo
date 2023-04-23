@@ -3,31 +3,30 @@ const init=() => {
 
   // puppy images
 
+  async function getPuppyImgs() {
+    let url='https://dog.ceo/api/breeds/image/random/4';
+    try {
+      let res=await fetch(url);
+      return await res.json();
+    } catch(error) {
+      console.log(error);
+    }
+  }
 
-  //  async function getPuppyImgs() {
-  //    let url='https://dog.ceo/api/breeds/image/random/4';
-  //    try {
-  //      let res=await fetch(url);
-  //      return await res.json();
-  //    } catch(error) {
-  //      console.log(error);
-  //    }
-  //  }
+  async function renderPuppyImgs() {
+    let puppies=await getPuppyImgs();  //console.log(puppies.message[0])
+    const array1=puppies.message;  //console.log(array1)
+    let html='';
+    for(const element of array1) {    //console.log(element);
+      let htmlSegment=`<span class="puppy"> <img src="${element}" >
+                          </span>`;
+      html+=htmlSegment;
+    }
+    let container=document.querySelector('#dog-image-container');
+    container.innerHTML=html;
+  }
+  renderPuppyImgs();
 
-  //  async function renderPuppyImgs() {
-  //    let puppies=await getPuppyImgs();  //console.log(puppies.message[0])
-  //    const array1=puppies.message;  //console.log(array1)
-  //    let html='';
-  //    for(const element of array1) {    //console.log(element);
-  //      let htmlSegment=`<span class="puppy"> <img src="${element}" >
-  //                        </span>`;
-  //      html+=htmlSegment;
-  //    }
-  //    let container=document.querySelector('#dog-image-container');
-  //    container.innerHTML=html;
-  //  }
-  //  renderPuppyImgs();
-  //}
 
   // puppy breeds
   async function getPuppyBreeds() {
@@ -50,7 +49,9 @@ const init=() => {
 
       //const map1=arrOfBreeds.map(x => x*2);
       //console.log(map1);
+      ///////////////////////////////////////////////////////
 
+      // need to work on filter, look into using .map()
 
       htmlSegment=`<li class="puppybreed"><span class="puppyspan">${element}</span></li> `
       html+=htmlSegment;
@@ -98,10 +99,6 @@ const init=() => {
       // evt.target refers to the clicked <li> element
       evt.target.style.color="red";
     }
-
-
-
-
 
   }
 
